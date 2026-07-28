@@ -1,5 +1,7 @@
 import modi_plus
 import time
+import math
+MOTOR_COUNT = 2
 
 bundle = modi_plus.MODIPlus()
 imu = bundle.imus[0]
@@ -9,15 +11,23 @@ acc_x = imu.acceleration_x
 acc_y = imu.acceleration_y
 acc_z = imu.acceleration_z
 
-# 2. 각속도 (Angular Velocity) - 회전하는 속도
-gyro_x = imu.angular_vel_x
-gyro_y = imu.angular_vel_y
-gyro_z = imu.angular_vel_z
+def f_jakdog(speed, par):
+    for i in range(MOTOR_COUNT):
+        bundle.motors[i].speed = par * speed if i % 2 == 0 else -speed * par
 
-# 3. 회전 각도 (Angle) 
-ang_x = imu.angle_x    # X축 기준 기울기
-ang_y = imu.angle_y    # Y축 기준 기울기
-ang_z = imu.angle_z    # Z축 기준 기울기
+for i in range(MOTOR_COUNT):
+    bundle.motors[i].angle = 0, 0
 
-# 4. 진동 / 충격 (Vibration / Impact) - 3축 가속도 합성값
-impact = (acc_x**2 + acc_y**2 + acc_z**2) ** 0.5
+
+while True:
+    ang_x = imu.angle_x + 90
+    ang_x = round(ang_x, 1)
+
+    if -90 < ang_x < 90:
+        ang_x = math.atan(ang_x) * 30
+
+        f_jakdog(ang_x, -1)
+        print(ang_x, end='\r')
+    else:
+        f_jakdog(0, 0)
+        print(f"넘어짐 : {ang_x}", end='\r')
