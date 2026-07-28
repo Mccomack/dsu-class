@@ -24,10 +24,15 @@ while True:
     ang_x = round(ang_x, 1)
 
     if -90 < ang_x < 90:
-        ang_x = math.atan(ang_x) * 30
+        if abs(ang_x) >= 30:
+            speed = 100
+            speed = speed if ang_x > 0 else -speed
+            print(f"반동 : {speed}", end='\r')
+        else:
+            speed = math.atan(ang_x) * 30
+            print(speed, end='\r')
 
-        f_jakdog(ang_x, -1)
-        print(ang_x, end='\r')
+        f_jakdog(speed, -1)
     else:
         f_jakdog(0, 0)
         print(f"넘어짐 : {ang_x}", end='\r')
