@@ -12,7 +12,7 @@ def shee(much):
 bundle = modi_plus.MODIPlus()
 print(bundle.modules)
 
-speaker = bundle. speakers [0]
+speaker = bundle.speakers[0]
 shee(1)
 jupasu(659,0.5)
 shee(0.1)
