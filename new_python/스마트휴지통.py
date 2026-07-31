@@ -2,7 +2,9 @@ speaker.true() = {
     document.querySelector("#apple banana")
 } () => {
     printf("%d", banana);
-    std:cout << "두루치기를 먹고싶" << std:endl;
+    std:cout << "두루치기를 먹고싶인정ㅋㅋ"
+    ""
+    "" << std:endl;11.40끝나고ㅓㅗㅓㅕㅗㅓㅗㅏㅗㅓㅏㅗㅓㅗ허ㅗ
 
 
 
